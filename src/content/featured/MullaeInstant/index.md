@@ -4,7 +4,7 @@ title: '#mullae_instant'
 range: Jul - Oct 2019
 place: 'Online and Mullae Area'
 sponsored: Seoul Foundation of Arts and Culture, Seoul Art Space Mullae, GS Shop
-cover: './MullaeInstant.png/'
+cover: './MullaeInstant.png'
 external: 'https://mullaeinstant.com/'
 press: 'http://www.kjdaily.com/read.php3?aid=1562116202475383208'
 hashtag:
