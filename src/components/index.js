@@ -1,11 +1,11 @@
 import About from './about';
 import Contact from './contact';
-import Email from './email';
+import Url from './url';
 import Featured from './featured';
 import Footer from './footer';
 import Head from './head';
-import Hero from './hero';
-import Jobs from './jobs';
+import Intro from './intro';
+import Cv from './cv';
 import Layout from './layout';
 import Loader from './loader';
 import Menu from './menu';
@@ -16,12 +16,12 @@ import Social from './social';
 export {
   About,
   Contact,
-  Email,
+  Url,
   Featured,
   Footer,
   Head,
-  Hero,
-  Jobs,
+  Intro,
+  Cv,
   Layout,
   Loader,
   Menu,

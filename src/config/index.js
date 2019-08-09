@@ -1,62 +1,67 @@
 module.exports = {
-  siteTitle: 'Brittany Chiang | Software Engineer',
-  siteDescription:
-    'Brittany Chiang is a software engineer based in Boston, MA who specializes in developing (and occasionally designing) exceptional, high-quality websites and applications.',
-  siteKeywords:
-    'Brittany Chiang, Brittany, Chiang, bchiang7, software engineer, front-end engineer, web developer, javascript, northeastern',
-  siteUrl: 'https://brittanychiang.com',
+  siteTitle: '_underscore | we underscore',
+  siteDescription: 'working as a research initiative',
+  siteKeywords: 'Artistic research, Performance, Text, Sound, Choreography, Image',
+  siteUrl: 'https://studio-underscore.com',
   siteLanguage: 'en_US',
+  siteName: 'studio-underscore.com',
 
-  googleVerification: 'DCl7VAf9tcz6eD9gb67NfkNnJ1PKRNcg8qQiwpbx9Lk',
+  googleVerification: 'HUy-_LLGxT4Ku1zSaONvq0i43aQTV2EcVKPlYzC3NKk',
 
-  name: 'Brittany Chiang',
-  location: 'Boston, MA',
-  email: 'brittany.chiang@gmail.com',
-  github: 'https://github.com/bchiang7/',
+  name: '_underscore',
+  location: 'Seoul',
+  email: 'we.underscore@gmail.com',
+  github: 'https://github.com/we-underscore/',
   socialMedia: [
     {
-      name: 'Github',
-      url: 'https://github.com/bchiang7/',
-    },
-    {
-      name: 'Linkedin',
-      url: 'https://www.linkedin.com/in/bchiang7/',
-    },
-    {
-      name: 'Codepen',
-      url: 'https://codepen.io/bchiang7/',
-    },
-    {
       name: 'Instagram',
-      url: 'https://www.instagram.com/bchiang7/',
+      url: 'https://www.instagram.com/____________underscore/',
     },
     {
-      name: 'Twitter',
-      url: 'https://twitter.com/bchiang7',
+      name: 'Vimeo',
+      url: 'https://vimeo.com/studiounderscore',
     },
   ],
 
   navLinks: [
     {
-      name: 'About',
+      name: 'about',
       url: '#about',
     },
     {
-      name: 'Experience',
-      url: '#jobs',
-    },
-    {
-      name: 'Work',
+      name: 'works',
       url: '#projects',
     },
     {
-      name: 'Contact',
+      name: 'more',
+      url: '#more',
+    },
+    {
+      name: 'contact',
+      url: '#contact',
+    },
+  ],
+  navHamLinks: [
+    {
+      name: '👯‍ about',
+      url: '#about',
+    },
+    {
+      name: '🎬 works ',
+      url: '#projects',
+    },
+    {
+      name: '💡 more',
+      url: '#more',
+    },
+    {
+      name: '📮 contact',
       url: '#contact',
     },
   ],
 
-  twitterHandle: '@bchiang7',
-  googleAnalyticsID: 'UA-45666519-2',
+  twitterHandle: '@eunchurn',
+  googleAnalyticsID: 'UA-145369997-1',
 
   navHeight: 100,
 

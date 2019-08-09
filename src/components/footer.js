@@ -6,8 +6,9 @@ import {
   IconCodepen,
   IconInstagram,
   IconTwitter,
-  IconStar,
-  IconFork,
+  // IconStar,
+  // IconFork,
+  IconVimeo,
 } from '@components/icons';
 import { socialMedia } from '@config';
 import styled from 'styled-components';
@@ -45,29 +46,53 @@ const SocialLink = styled.a`
 const Copy = styled.div`
   margin: 10px 0;
   font-family: ${fonts.SFMono};
-  font-size: ${fontSizes.xsmall};
+  font-size: ${fontSizes.small};
   line-height: 1;
 `;
-const GithubLink = styled.a`
-  color: ${colors.slate};
-`;
-const GithubInfo = styled.div`
-  margin-top: 10px;
 
-  & > span {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 7px;
+const Heart = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+  animation: fave-heart 1s steps(28);
+  &:hover {
+    background-position: -2800px 0;
+    transition: background 1s steps(28);
   }
-  svg {
-    display: inline-block;
-    height: 15px;
-    width: auto;
-    margin-right: 5px;
+  @keyframes fave-heart {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -2800px 0;
+    }
   }
 `;
+// const GithubLink = styled.a`
+//   color: ${colors.slate};
+// `;
+// const GithubInfo = styled.div`
+//   margin-top: 10px;
 
-const Footer = ({ githubInfo }) => (
+//   & > span {
+//     display: inline-flex;
+//     align-items: center;
+//     margin: 0 7px;
+//   }
+//   svg {
+//     display: inline-block;
+//     height: 15px;
+//     width: auto;
+//     margin-right: 5px;
+//   }
+// `;
+
+const Footer = () => (
   <FooterContainer>
     <SocialContainer>
       <SocialItemList>
@@ -89,6 +114,8 @@ const Footer = ({ githubInfo }) => (
                   <IconInstagram />
                 ) : name === 'Twitter' ? (
                   <IconTwitter />
+                ) : name === 'Vimeo' ? (
+                  <IconVimeo />
                 ) : (
                   <IconGithub />
                 )}
@@ -98,25 +125,10 @@ const Footer = ({ githubInfo }) => (
       </SocialItemList>
     </SocialContainer>
     <Copy>
-      <GithubLink
-        href="https://github.com/bchiang7/v4"
-        target="_blank"
-        rel="nofollow noopener noreferrer">
-        <div>Designed &amp; Built by Brittany Chiang</div>
-
-        {githubInfo.stars && githubInfo.forks && (
-          <GithubInfo>
-            <span>
-              <IconStar />
-              <span>{githubInfo.stars}</span>
-            </span>
-            <span>
-              <IconFork />
-              <span>{githubInfo.forks}</span>
-            </span>
-          </GithubInfo>
-        )}
-      </GithubLink>
+      <div>&copy; 2019 underscore, all rights reserved.</div>
+      <div>
+        Made with <Heart /> in Seoul
+      </div>
     </Copy>
   </FooterContainer>
 );

@@ -9,7 +9,7 @@ const { colors } = theme;
 
 const LoaderContainer = styled.div`
   ${mixins.flexCenter};
-  background-color: ${colors.darkNavy};
+  background-color: ${colors.underscoreWhite};
   position: fixed;
   width: 100%;
   height: 100%;
@@ -31,8 +31,12 @@ const LogoWrapper = styled.div`
     margin: 0 auto;
     fill: none;
     user-select: none;
-    #B {
+    isolation: isolate;
+    #underscore {
       opacity: 0;
+    }
+    path {
+      mix-blend-mode: multiply;
     }
   }
 `;
@@ -45,17 +49,17 @@ const Loader = ({ finishLoading }) => {
 
     loader
       .add({
+        targets: '#logo #underscore',
+        duration: 800,
+        easing: 'easeInOutQuart',
+        opacity: 1,
+      })
+      .add({
         targets: '#logo path',
         delay: 500,
         duration: 2000,
         easing: 'easeInOutQuart',
         strokeDashoffset: [anime.setDashoffset, 0],
-      })
-      .add({
-        targets: '#logo #B',
-        duration: 800,
-        easing: 'easeInOutQuart',
-        opacity: 1,
       })
       .add({
         targets: '#logo',

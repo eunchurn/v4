@@ -1,19 +1,25 @@
 ---
-title: 'About Me'
-avatar: './me.jpg'
+title: '👯‍ about'
+avatar: './photo_2019-08-04_00-49-18.jpg'
 skills:
-  - JavaScript (ES6+)
-  - HTML & (S)CSS
-  - React
-  - Vue
-  - Node.js
-  - Express
-  - GraphQL
-  - NativeScript
+  - Artistic research
+  - Performance
+  - Text
+  - Sound
+  - Choreography
+  - Image
 ---
 
-Hello! I'm Brittany, a software engineer based in Boston, MA who enjoys building things that live on the internet. I develop exceptional websites and web apps that provide intuitive, pixel-perfect user interfaces with efficient and modern backends.
+**underscore** is a team of two, Inkyung Baik and Hakyung Sim.
 
-Shortly after graduating from [Northeastern University](https://www.ccis.northeastern.edu/), I joined the engineering team at [Upstatement](https://www.upstatement.com/) where I work on a wide variety of interesting and meaningful projects on a daily basis.
+Baik, a visual design major, and Sim, an English literature major, met at the Interdisciplinary Program of Performing Arts Studies at Seoul National University. They have studied and worked together since, and are thinking the contemporary from a performing arts perspective as _underscore_ since 2017.
 
-Here's a few technologies I've been working with recently:
+**underscore** does the following:
+
+"underscore" : We set problems through reading and underscoring, and carry out research upon those problems.
+
+"\_\_\_\_\_\_\_\_\_\_\_\_" : We connect the conceptual to the sensible.
+
+"\_\_\_\_\_\_score" : We deal with scores as what enable future performances as aesthetic forms.
+
+"(working) under (the) score" : We carry out performances following the scores.

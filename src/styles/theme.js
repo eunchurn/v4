@@ -12,7 +12,7 @@ const theme = {
     lightGrey: '#606a86',
     slate: '#8892b0',
     lightSlate: '#a8b2d1',
-    lightestSlate: '#ccd6f6',
+    lightestSlate: '#00000', // '#ccd6f6'
     offWhite: '#dce7ff',
     white: '#e6f1ff',
     pink: '#FF647F',
@@ -21,16 +21,26 @@ const theme = {
     green: '#64ffda',
     blue: '#71AFFF',
     darkBlue: '#1D7FFC',
-    highlight: 'rgba(41, 61, 90, 0.99)',
+    highlight: 'rgba(254,249, 0, 1)',
     transGreen: 'rgba(100, 255, 218, 0.07)',
     transNavy: 'rgba(10, 25, 47, 0.7)',
     shadowNavy: 'rgba(2, 12, 27, 0.7)',
+    underscoreWhite: '#ffffff',
+    underscoreWhiteOp: 'rgba(256,256,256,0.5)',
+    underscoreWhiteLightOp: 'rgba(256,256,256,0.8)',
+    underscoreBlack: '#262626',
+    underscoreBlackOp: 'rgba(38,38,38,0.5)',
+    underscoreGrey: '#A49E9E',
+    underscoreTitle: '#ffffff',
+    underscorePink: '#E299B0',
   },
 
   fonts: {
     Calibre:
       'Calibre, San Francisco, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, Roboto, Helvetica Neue, Segoe UI, Arial, sans-serif',
     SFMono: 'SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, monospace',
+    NanumSquare:
+      'NanumSquare, -apple-system, system-ui, BlinkMacSystemFont, Roboto, Helvetica Neue, Segoe UI, Arial, sans-serif',
   },
 
   fontSizes: {
@@ -48,8 +58,8 @@ const theme = {
   transition: 'all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1)',
 
   borderRadius: '3px',
-  navHeight: '100px',
-  navScrollHeight: '70px',
+  navHeight: '60px',
+  navScrollHeight: '50px',
   margin: '20px',
 
   tabHeight: 42,

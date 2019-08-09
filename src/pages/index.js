@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
-import { Layout, Hero, About, Jobs, Featured, Projects, Contact } from '@components';
+import { Layout, Intro, About, Featured, Projects, Contact } from '@components';
 import styled from 'styled-components';
 import { mixins, Main } from '@styles';
 
@@ -13,9 +13,8 @@ const MainContainer = styled(Main)`
 const IndexPage = ({ data }) => (
   <Layout>
     <MainContainer id="content">
-      <Hero data={data.hero.edges} />
-      <About data={data.about.edges} />
-      <Jobs data={data.jobs.edges} />
+      <Intro data={data.intro.edges} />
+      <About data={data.about.edges} cvdata={data.cv.edges} />
       <Featured data={data.featured.edges} />
       <Projects data={data.projects.edges} />
       <Contact data={data.contact.edges} />
@@ -31,14 +30,16 @@ export default IndexPage;
 
 export const pageQuery = graphql`
   {
-    hero: allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/hero/" } }) {
+    intro: allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/intro/" } }) {
       edges {
         node {
           frontmatter {
             title
             name
             subtitle
-            contactText
+            buttonText
+            vimeoLink
+            youtubeLink
           }
           html
         }
@@ -49,31 +50,20 @@ export const pageQuery = graphql`
         node {
           frontmatter {
             title
-            avatar {
-              childImageSharp {
-                fluid(maxWidth: 700, quality: 90, traceSVG: { color: "#64ffda" }) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
-                }
-              }
-            }
             skills
           }
           html
         }
       }
     }
-    jobs: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/jobs/" } }
-      sort: { fields: [frontmatter___date], order: DESC }
+    cv: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/cv/" } }
+      sort: { fields: [frontmatter___order], order: ASC }
     ) {
       edges {
         node {
           frontmatter {
             title
-            company
-            location
-            range
-            url
           }
           html
         }
@@ -94,8 +84,10 @@ export const pageQuery = graphql`
                 }
               }
             }
-            tech
-            github
+            hashtag
+            range
+            place
+            press
             external
             show
           }
@@ -111,9 +103,14 @@ export const pageQuery = graphql`
         node {
           frontmatter {
             title
-            image
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 437, maxHeight: 246, quality: 90, traceSVG: { color: "#64ffda" }) {
+                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                }
+              }
+            }
             tech
-            github
             external
             show
           }

@@ -31,7 +31,7 @@ const mixins = {
     &:hover,
     &:active,
     &:focus {
-      color: ${colors.green};
+      color: ${colors.lightNavy};
       outline: 0;
     }
   `,
@@ -43,11 +43,11 @@ const mixins = {
     position: relative;
     transition: ${theme.transition};
     cursor: pointer;
-    color: ${colors.green};
+    color: ${colors.lightNavy};
     &:hover,
     &:focus,
     &:active {
-      color: ${colors.green};
+      color: ${colors.lightNavy};
       outline: 0;
       &:after {
         width: 100%;
@@ -60,16 +60,16 @@ const mixins = {
       height: 1px;
       position: relative;
       bottom: 0.37em;
-      background-color: ${colors.green};
+      background-color: ${colors.lightNavy};
       transition: ${theme.transition};
       opacity: 0.5;
     }
   `,
 
   smallButton: css`
-    color: ${colors.green};
+    color: ${colors.underscoreBlack};
     background-color: transparent;
-    border: 1px solid ${colors.green};
+    border: 1px solid ${colors.underscoreBlack};
     border-radius: ${theme.borderRadius};
     padding: 0.75rem 1rem;
     font-size: ${fontSizes.smallish};
@@ -81,7 +81,8 @@ const mixins = {
     &:hover,
     &:focus,
     &:active {
-      background-color: ${colors.transGreen};
+      background-image: linear-gradient(120deg, #ff00b0 0%, #8fd3f4 100%);
+      transition: ${theme.transition};
     }
     &:after {
       display: none !important;
@@ -89,9 +90,9 @@ const mixins = {
   `,
 
   bigButton: css`
-    color: ${colors.green};
+    color: ${colors.highlight};
     background-color: transparent;
-    border: 1px solid ${colors.green};
+    border: 1px solid ${colors.highlight};
     border-radius: ${theme.borderRadius};
     padding: 1.25rem 1.75rem;
     font-size: ${fontSizes.small};
@@ -104,6 +105,7 @@ const mixins = {
     &:focus,
     &:active {
       background-color: ${colors.transGreen};
+      color: ${colors.underscoreWhite};
     }
     &:after {
       display: none !important;

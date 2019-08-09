@@ -26,7 +26,7 @@ const ContentContainer = styled.div`
 const FeaturedLabel = styled.h4`
   font-size: ${fontSizes.smallish};
   font-weight: normal;
-  color: ${colors.green};
+  color: ${colors.underscorePink};
   font-family: ${fonts.SFMono};
   margin-top: 10px;
   padding-top: 0;
@@ -34,41 +34,70 @@ const FeaturedLabel = styled.h4`
 const ProjectName = styled.h5`
   font-size: 28px;
   font-weight: 600;
-  margin: 0 0 20px;
-  color: ${colors.lightestSlate};
+  margin: 0 0 0px;
+  color: ${colors.underscoreGrey};
   ${media.tablet`font-size: 24px;`};
   a {
+    &:hover,
+    &:active {
+      color: ${colors.underscoreBlack} !important;
+    }
+    &:focus {
+      display: none !important;
+    }
     ${media.tablet`display: block;`};
   }
 `;
+
+const PlaceRange = styled.h6`
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0 0 20px;
+  text-aling: left;
+  color: ${colors.underscoreGrey};
+  ${media.tablet`font-size: 13px;`};
+  a {
+    &:hover,
+    &:active {
+      color: ${colors.underscoreBlack} !important;
+    }
+    &:focus {
+      display: none !important;
+    }
+    ${media.tablet`display: block;`};
+  }
+`;
+
 const ProjectDescription = styled.div`
   ${mixins.boxShadow};
   position: relative;
-  z-index: 2;
+  z-index: 10;
   padding: 25px;
-  background-color: ${colors.lightNavy};
-  color: ${colors.lightSlate};
-  font-size: ${fontSizes.large};
+  background-color: ${colors.underscoreWhiteLightOp};
+  color: ${colors.underscoreBlack};
+  // font-family: ${fonts.NanumSquare};
+  font-size: ${fontSizes.small};
   border-radius: ${theme.borderRadius};
   ${media.thone`
-    background-color: transparent;
+    color: ${colors.underscoreBlack};
+    background-color: ${colors.underscoreWhite};
     padding: 20px 0;
   `};
   p {
-    margin: 0;
+    margin: 15px;
   }
   a {
     ${mixins.inlineLink};
-    color: ${colors.white};
+    color: ${colors.blue};
   }
 `;
-const TechList = styled.ul`
+const HashtagList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   margin: 25px 0 10px;
   li {
     font-family: ${fonts.SFMono};
-    font-size: ${fontSizes.smallish};
+    font-size: ${fontSizes.xsmall};
     color: ${colors.lightSlate};
     margin-right: ${theme.margin};
     margin-bottom: 7px;
@@ -94,7 +123,17 @@ const Links = styled.div`
       width: 22px;
       height: 22px;
     }
+    &:hover,
+    &:active {
+      color: ${colors.highlight} !important;
+    }
+    &:focus {
+      display: none !important;
+    }
   }
+  ${media.thone`
+    color: ${colors.underscoreWhite};
+  `};
 `;
 const FeaturedImg = styled(Img)`
   width: 100%;
@@ -103,12 +142,12 @@ const FeaturedImg = styled(Img)`
   border-radius: ${theme.borderRadius};
   position: relative;
   mix-blend-mode: multiply;
-  filter: grayscale(100%) contrast(1) brightness(90%);
+  // filter: grayscale(100%) contrast(1) brightness(90%);
   ${media.tablet`
     object-fit: cover;
     width: auto;
     height: 100%;
-    filter: grayscale(100%) contrast(1) brightness(80%);
+    // filter: grayscale(100%) contrast(1) brightness(80%);
   `};
 `;
 const ImgContainer = styled.a`
@@ -117,13 +156,15 @@ const ImgContainer = styled.a`
   grid-row: 1 / -1;
   position: relative;
   z-index: 1;
-  background-color: ${colors.green};
+  background-color: ${colors.underscoreBlackOp};
   border-radius: ${theme.radius + 1}px;
   transition: ${theme.transition};
   ${media.tablet`height: 100%;`};
   ${media.thone`
     grid-column: 1 / -1;
-    opacity: 0.25;
+    // opacity: 0.25;
+    z-index: -1;
+    background-color: ${colors.underscoreBlackOp};
   `};
   &:hover,
   &:focus {
@@ -160,33 +201,49 @@ const Project = styled.div`
     margin-bottom: 0;
   }
   &:nth-of-type(odd) {
+    ${FeaturedLabel} {
+      text-align: right;
+    }
+    ${ProjectName} {
+      text-align: right;
+    }
+    ${PlaceRange} {
+      text-align: right;
+    }
     ${ContentContainer} {
       grid-column: 7 / -1;
-      text-align: right;
+      text-align: left;
       ${media.thone`
         grid-column: 1 / -1;
         padding: 40px 40px 30px;
+        text-align: left;
       `};
       ${media.phablet`padding: 30px 25px 20px;`};
     }
-    ${TechList} {
+    ${HashtagList} {
       justify-content: flex-end;
+      text-align: right;
+      margin-left: 30px;
       li {
         margin-left: ${theme.margin};
-        margin-right: 0;
+        margin-right: 5px;
       }
     }
     ${Links} {
       justify-content: flex-end;
       margin-left: 0;
       margin-right: -10px;
+      ${media.thone`
+      color: ${colors.underscoreWhite};
+    `};
     }
     ${ImgContainer} {
       grid-column: 1 / 8;
       ${media.tablet`height: 100%;`};
       ${media.thone`
         grid-column: 1 / -1;
-        opacity: 0.25;
+        // opacity: 0.25;
+        z-index: -1;
       `};
     }
   }
@@ -204,13 +261,17 @@ const Featured = ({ data }) => {
 
   return (
     <FeaturedContainer id="projects">
-      <Heading ref={revealTitle}>Some Things I&apos;ve Built</Heading>
+      <Heading ref={revealTitle}>
+        <span role="img" aria-label="Film">
+          🎬 works
+        </span>
+      </Heading>
 
       <div>
         {featuredProjects &&
           featuredProjects.map(({ node }, i) => {
             const { frontmatter, html } = node;
-            const { external, title, tech, github, cover } = frontmatter;
+            const { external, title, hashtag, github, place, range, cover } = frontmatter;
 
             return (
               <Project key={i} ref={el => (revealProjects.current[i] = el)}>
@@ -229,13 +290,16 @@ const Featured = ({ data }) => {
                       title
                     )}
                   </ProjectName>
+                  <PlaceRange>
+                    {range} | {place}
+                  </PlaceRange>
                   <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
-                  {tech && (
-                    <TechList>
-                      {tech.map((tech, i) => (
-                        <li key={i}>{tech}</li>
+                  {hashtag && (
+                    <HashtagList>
+                      {hashtag.map((hashtag, i) => (
+                        <li key={i}>{hashtag}</li>
                       ))}
-                    </TechList>
+                    </HashtagList>
                   )}
                   <Links>
                     {github && (

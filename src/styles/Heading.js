@@ -4,6 +4,7 @@ import media from './media';
 const { colors, fontSizes, fonts } = theme;
 
 const Heading = styled.h3`
+  color: ${colors.underscoreBlack};
   position: relative;
   display: flex;
   align-items: center;
@@ -15,7 +16,7 @@ const Heading = styled.h3`
 
   &:before {
     counter-increment: section;
-    content: '0' counter(section) '.';
+    // content: '0' counter(section) '.';
     margin-right: 10px;
     font-family: ${fonts.SFMono};
     font-weight: normal;

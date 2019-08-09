@@ -42,6 +42,19 @@ import SFMonoSemiboldItalicTTF from '@fonts/SFMono/SFMono-SemiboldItalic.ttf';
 import SFMonoSemiboldItalicWOFF from '@fonts/SFMono/SFMono-SemiboldItalic.woff';
 import SFMonoSemiboldItalicWOFF2 from '@fonts/SFMono/SFMono-SemiboldItalic.woff2';
 
+import NanumSquareLightEOT from '@fonts/NanumSquare/NanumSquareL.eot';
+import NanumSquareLightWOFF from '@fonts/NanumSquare/NanumSquareL.woff';
+import NanumSquareLightTTF from '@fonts/NanumSquare/NanumSquareL.ttf';
+import NanumSquareRegularEOT from '@fonts/NanumSquare/NanumSquareR.eot';
+import NanumSquareRegularWOFF from '@fonts/NanumSquare/NanumSquareR.woff';
+import NanumSquareRegularTTF from '@fonts/NanumSquare/NanumSquareR.ttf';
+import NanumSquareBoldEOT from '@fonts/NanumSquare/NanumSquareB.eot';
+import NanumSquareBoldWOFF from '@fonts/NanumSquare/NanumSquareB.woff';
+import NanumSquareBoldTTF from '@fonts/NanumSquare/NanumSquareB.ttf';
+import NanumSquareExtraBoldEOT from '@fonts/NanumSquare/NanumSquareEB.eot';
+import NanumSquareExtraBoldWOFF from '@fonts/NanumSquare/NanumSquareEB.woff';
+import NanumSquareExtraBoldTTF from '@fonts/NanumSquare/NanumSquareEB.ttf';
+
 export {
   CalibreLightTTF,
   CalibreLightWOFF,
@@ -85,4 +98,16 @@ export {
   SFMonoSemiboldItalicTTF,
   SFMonoSemiboldItalicWOFF,
   SFMonoSemiboldItalicWOFF2,
+  NanumSquareLightEOT,
+  NanumSquareLightWOFF,
+  NanumSquareLightTTF,
+  NanumSquareRegularEOT,
+  NanumSquareRegularWOFF,
+  NanumSquareRegularTTF,
+  NanumSquareBoldEOT,
+  NanumSquareBoldWOFF,
+  NanumSquareBoldTTF,
+  NanumSquareExtraBoldEOT,
+  NanumSquareExtraBoldWOFF,
+  NanumSquareExtraBoldTTF,
 };

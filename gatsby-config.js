@@ -16,12 +16,12 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'BrittanyChiang',
-        short_name: 'BrittanyChiang',
+        name: 'underscore',
+        short_name: 'underscore',
         start_url: '/',
-        background_color: config.darkNavyColor,
-        theme_color: config.navyColor,
-        display: 'minimal-ui',
+        background_color: config.underscoreWhite,
+        theme_color: config.underscoreWhite,
+        display: 'underscore',
         icon: 'src/images/logo.png',
       },
     },
@@ -62,4 +62,5 @@ module.exports = {
       },
     },
   ],
+  pathPrefix: `/v1`,
 };

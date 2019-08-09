@@ -11,7 +11,7 @@ const SocialContainer = styled.div`
   position: fixed;
   bottom: 0;
   left: 40px;
-  color: ${colors.lightSlate};
+  color: ${colors.underscoreGrey};
   ${media.desktop`left: 25px;`};
   ${media.tablet`display: none;`};
 `;
@@ -35,7 +35,10 @@ const SocialItem = styled.li`
 `;
 const SocialLink = styled.a`
   padding: 10px;
-  &:hover,
+  &:hover {
+    color: ${colors.highlight};
+    transform: translateY(-3px);
+  }
   &:focus {
     transform: translateY(-3px);
   }

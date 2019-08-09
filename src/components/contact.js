@@ -16,7 +16,7 @@ const ContactContainer = styled(Section)`
 `;
 const GreenHeading = styled(Heading)`
   display: block;
-  color: ${colors.green};
+  color: ${colors.underscoreGrey};
   font-size: ${fontSizes.medium};
   font-family: ${fonts.SFMono};
   font-weight: normal;
@@ -35,11 +35,32 @@ const GreenHeading = styled(Heading)`
 const Title = styled.h4`
   margin: 0 0 20px;
   font-size: 60px;
+  color: ${colors.underscoreBlack};
   ${media.desktop`font-size: 50px;`};
   ${media.tablet`font-size: 40px;`};
 `;
 const EmailLink = styled.a`
-  ${mixins.bigButton};
+  color: ${colors.underscoreBlack};
+  background-color: transparent;
+  border: 1px solid ${colors.underscoreBlack};
+  border-radius: ${theme.borderRadius};
+  padding: 1.25rem 1.75rem;
+  font-size: ${fontSizes.small};
+  font-family: ${fonts.SFMono};
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: ${theme.transition};
+  &:hover,
+  &:active {
+    background-color: ${colors.highlight};
+    color: ${colors.underscoreBlack};
+    border: 1px solid ${colors.highlight};
+  }
+  &:focus,
+  &:after {
+    display: none !important;
+  }
   margin-top: 50px;
 `;
 
@@ -51,7 +72,7 @@ const Contact = ({ data }) => {
 
   return (
     <ContactContainer id="contact" ref={revealContainer}>
-      <GreenHeading>What&apos;s Next?</GreenHeading>
+      <GreenHeading>What&apos;s Up?</GreenHeading>
 
       <Title>{title}</Title>
 

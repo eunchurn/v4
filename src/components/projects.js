@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import Img from 'gatsby-image';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import sr from '@utils/sr';
 import { srConfig } from '@config';
-import { IconGithub, IconExternal, IconFolder } from '@components/icons';
 import styled from 'styled-components';
-import { theme, mixins, media, Section, Button } from '@styles';
+import { theme, mixins, media, Section, Button, Heading } from '@styles';
 const { colors, fontSizes, fonts } = theme;
 
 const ProjectsContainer = styled(Section)`
@@ -13,18 +13,18 @@ const ProjectsContainer = styled(Section)`
   flex-direction: column;
   align-items: flex-start;
 `;
-const ProjectsTitle = styled.h4`
-  margin: 0 auto 50px;
-  font-size: ${fontSizes.h3};
-  ${media.tablet`font-size: 24px;`};
-  a {
-    display: block;
-  }
-`;
+// const ProjectsTitle = styled.h4`
+//   margin: 0 auto 50px;
+//   font-size: ${fontSizes.h3};
+//   ${media.tablet`font-size: 24px;`};
+//   a {
+//     display: block;
+//   }
+// `;
 const ProjectsGrid = styled.div`
   .projects {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: 1fr 1fr;
     grid-gap: 15px;
     position: relative;
     ${media.desktop`grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));`};
@@ -40,11 +40,12 @@ const ProjectInner = styled.div`
   height: 100%;
   border-radius: ${theme.borderRadius};
   transition: ${theme.transition};
-  background-color: ${colors.lightNavy};
+  background-color: ${colors.underscoreWhite};
 `;
 const Project = styled.div`
   transition: ${theme.transition};
   cursor: default;
+  background-image: url(${props => props.fluid});
   &:hover,
   &:focus {
     outline: 0;
@@ -57,38 +58,13 @@ const ProjectHeader = styled.div`
   ${mixins.flexBetween};
   margin-bottom: 30px;
 `;
-const Folder = styled.div`
-  color: ${colors.green};
-  svg {
-    width: 40px;
-    height: 40px;
-  }
-`;
-const Links = styled.div`
-  margin-right: -10px;
-  color: ${colors.lightSlate};
-`;
-const IconLink = styled.a`
-  position: relative;
-  top: -10px;
-  padding: 10px;
 
-  svg {
-    width: 20px;
-    height: 20px;
-  }
-`;
 const ProjectName = styled.h5`
   margin: 0 0 10px;
   font-size: ${fontSizes.xxlarge};
-  color: ${colors.lightestSlate};
+  color: ${colors.underscoreBlack};
 `;
-const ProjectDescription = styled.div`
-  font-size: 17px;
-  a {
-    ${mixins.inlineLink};
-  }
-`;
+
 const TechList = styled.ul`
   flex-grow: 1;
   display: flex;
@@ -108,6 +84,23 @@ const TechList = styled.ul`
 `;
 const ShowMoreButton = styled(Button)`
   margin: 100px auto 0;
+  color: ${colors.underscoreGrey};
+`;
+
+const ProjectImage = styled(Img)`
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: ${theme.borderRadius};
+  position: relative;
+  mix-blend-mode: multiply;
+  // filter: grayscale(100%) contrast(1) brightness(90%);
+  ${media.tablet`
+  object-fit: cover;
+  width: auto;
+  height: 100%;
+  // filter: grayscale(100%) contrast(1) brightness(80%);
+`};
 `;
 
 const Projects = ({ data }) => {
@@ -125,14 +118,18 @@ const Projects = ({ data }) => {
   const projectsToShow = showMore ? projects : firstSix;
 
   return (
-    <ProjectsContainer>
-      <ProjectsTitle ref={revealTitle}>Other Projects</ProjectsTitle>
+    <ProjectsContainer id="more">
+      <Heading ref={revealTitle}>
+        <span role="img" aria-label="Bulb">
+          💡 more
+        </span>
+      </Heading>
       <ProjectsGrid>
         <TransitionGroup className="projects">
           {projectsToShow &&
             projectsToShow.map(({ node }, i) => {
-              const { frontmatter, html } = node;
-              const { github, external, title, tech } = frontmatter;
+              const { frontmatter } = node;
+              const { title, tech, cover } = frontmatter;
               return (
                 <CSSTransition
                   key={i}
@@ -147,34 +144,10 @@ const Projects = ({ data }) => {
                       transitionDelay: `${i >= GRID_LIMIT ? (i - GRID_LIMIT) * 100 : 0}ms`,
                     }}>
                     <ProjectInner>
+                      <ProjectImage fluid={cover.childImageSharp.fluid} />
                       <header>
-                        <ProjectHeader>
-                          <Folder>
-                            <IconFolder />
-                          </Folder>
-                          <Links>
-                            {github && (
-                              <IconLink
-                                href={github}
-                                target="_blank"
-                                rel="nofollow noopener noreferrer"
-                                aria-label="Github Link">
-                                <IconGithub />
-                              </IconLink>
-                            )}
-                            {external && (
-                              <IconLink
-                                href={external}
-                                target="_blank"
-                                rel="nofollow noopener noreferrer"
-                                aria-label="External Link">
-                                <IconExternal />
-                              </IconLink>
-                            )}
-                          </Links>
-                        </ProjectHeader>
+                        <ProjectHeader></ProjectHeader>
                         <ProjectName>{title}</ProjectName>
-                        <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
                       </header>
                       <footer>
                         <TechList>

@@ -131,6 +131,38 @@ const GlobalStyle = createGlobalStyle`
     font-style: italic;
     font-display: auto;
   }
+  @font-face {
+    font-family: 'NanumSquare';
+    src: url(${fontFamilies.NanumSquareRegularEOT}) format('eot'),
+    url(${fontFamilies.NanumSquareRegularEOT}?#iefix) format('embedded-opentype'),
+    url(${fontFamilies.NanumSquareRegularWOFF}) format('woff'),
+    url(${fontFamilies.NanumSquareRegularTTF}) format('truetype');
+    font-weight: 400;
+   }
+  @font-face {
+    font-family: 'NanumSquare';
+    src: url(${fontFamilies.NanumSquareBoldEOT}) format('eot'),
+    url(${fontFamilies.NanumSquareBoldEOT}?#iefix) format('embedded-opentype'),
+    url(${fontFamilies.NanumSquareBoldWOFF}) format('woff'),
+    url(${fontFamilies.NanumSquareBoldTTF}) format('truetype');
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: 'NanumSquare';
+    src: url(${fontFamilies.NanumSquareExtraBoldEOT}) format('eot'),
+    url(${fontFamilies.NanumSquareExtraBoldEOT}?#iefix) format('embedded-opentype'),
+    url(${fontFamilies.NanumSquareExtraBoldWOFF}) format('woff'),
+    url(${fontFamilies.NanumSquareExtraBoldTTF}) format('truetype');
+    font-weight: 800;
+  }
+  @font-face {
+    font-family: 'NanumSquare';
+    src: url(${fontFamilies.NanumSquareLightEOT}) format('eot'),
+    url(${fontFamilies.NanumSquareLightEOT}?#iefix) format('embedded-opentype'),
+    url(${fontFamilies.NanumSquareLightWOFF}) format('woff'),
+    url(${fontFamilies.NanumSquareLightTTF}) format('truetype');
+    font-weight: 300;
+  }
 
   html {
     box-sizing: border-box;
@@ -150,8 +182,8 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    background-color: ${colors.navy};
-    color: ${colors.slate};
+    background-color: ${colors.underscoreWhite};
+    color: ${colors.underscoreBlack};
     line-height: 1.3;
     font-family: ${fonts.Calibre};
     font-size: ${fontSizes.xlarge};

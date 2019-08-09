@@ -10,6 +10,7 @@ import IconFolder from './folder';
 import IconLocation from './location';
 import IconStar from './star';
 import IconFork from './fork';
+import IconVimeo from './vimeo';
 import FormattedIcon from './formattedIcon';
 
 export {
@@ -25,5 +26,6 @@ export {
   IconLocation,
   IconStar,
   IconFork,
+  IconVimeo,
   FormattedIcon,
 };

@@ -15,18 +15,19 @@ const NavContainer = styled.header`
   position: fixed;
   top: 0;
   padding: 0px 50px;
-  background-color: ${colors.navy};
+  background-color: ${props =>
+    props.scrolldirection === 'none' ? colors.underscoreWhiteOp : colors.underscoreWhite};
   transition: ${theme.transition};
   z-index: 11;
   filter: none !important;
   pointer-events: auto !important;
   user-select: auto !important;
   width: 100%;
-  height: ${props => (props.scrollDirection === 'none' ? theme.navHeight : theme.navScrollHeight)};
+  height: ${props => (props.scrolldirection === 'none' ? theme.navHeight : theme.navScrollHeight)};
   box-shadow: ${props =>
-    props.scrollDirection === 'up' ? `0 10px 30px -10px ${colors.shadowNavy}` : 'none'};
+    props.scrolldirection === 'up' ? `0 10px 30px -10px ${colors.shadowNavy}` : 'none'};
   transform: translateY(
-    ${props => (props.scrollDirection === 'down' ? `-${theme.navScrollHeight}` : '0px')}
+    ${props => (props.scrolldirection === 'down' ? `-${theme.navScrollHeight}` : '0px')}
   );
   ${media.desktop`padding: 0 40px;`};
   ${media.tablet`padding: 0 25px;`};
@@ -35,21 +36,26 @@ const Navbar = styled.nav`
   ${mixins.flexBetween};
   position: relative;
   width: 100%;
-  color: ${colors.lightestSlate};
+  color: ${colors.underscoreBlack};
   font-family: ${fonts.SFMono};
   counter-reset: item 0;
   z-index: 12;
 `;
 const Logo = styled.div`
   ${mixins.flexCenter};
+  isolation: isolate;
+  mix-blend-mode: multiply;
+  path {
+    mix-blend-mode: multiply;
+  }
 `;
-const LogoLink = styled.a`
+const LogoLink = styled(AnchorLink)`
   display: block;
   color: ${colors.green};
-  width: 42px;
-  height: 42px;
+  width: 160px;
+  height: 40px;
   &:hover,
-  &:focus {
+  &:active {
     svg {
       fill: ${colors.transGreen};
     }
@@ -83,7 +89,8 @@ const HamburgerBox = styled.div`
   height: 24px;
 `;
 const HamburgerInner = styled.div`
-  background-color: ${colors.green};
+  background-color: ${props =>
+    props.menuOpen ? `${colors.underscoreWhite}` : `${colors.underscoreBlack}`};
   position: absolute;
   width: ${theme.hamburgerWidth}px;
   height: 2px;
@@ -102,7 +109,8 @@ const HamburgerInner = styled.div`
   &:after {
     content: '';
     display: block;
-    background-color: ${colors.green};
+    background-color: ${props =>
+    props.menuOpen ? `${colors.underscoreWhite}` : `${colors.underscoreBlack}`};
     position: absolute;
     left: auto;
     right: 0;
@@ -114,13 +122,14 @@ const HamburgerInner = styled.div`
     border-radius: 4px;
   }
   &:before {
-    width: ${props => (props.menuOpen ? `100%` : `120%`)};
+    width: ${props => (props.menuOpen ? `100%` : `100%`)};
+    color: ${props => (props.menuOpen ? `${colors.underscoreWhite}` : `${colors.underscoreBlack}`)};
     top: ${props => (props.menuOpen ? `0` : `-10px`)};
     opacity: ${props => (props.menuOpen ? 0 : 1)};
     transition: ${props => (props.menuOpen ? theme.hamBeforeActive : theme.hamBefore)};
   }
   &:after {
-    width: ${props => (props.menuOpen ? `100%` : `80%`)};
+    width: ${props => (props.menuOpen ? `100%` : `100%`)};
     bottom: ${props => (props.menuOpen ? `0` : `-10px`)};
     transform: rotate(${props => (props.menuOpen ? `-90deg` : `0`)});
     transition: ${props => (props.menuOpen ? theme.hamAfterActive : theme.hamAfter)};
@@ -136,25 +145,55 @@ const NavList = styled.ol`
     ${mixins.flexBetween};
   }
 `;
+
 const NavListItem = styled.li`
   margin: 0 10px;
   position: relative;
   font-size: ${fontSizes.smallish};
   counter-increment: item 1;
-  &:before {
-    content: '0' counter(item) '.';
-    text-align: right;
-    color: ${colors.green};
-    font-size: ${fontSizes.xsmall};
+  // background-image: linear-gradient(120deg, #ff00b0 0%, #8fd3f4 100%);
+  // background-repeat: no-repeat;
+  // background-size: 100% 0.2em;
+  // background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+  &:hover {
+    background-size: 100% 88%;
   }
+  &:after {
+    display: none !important;
+  }
+  // &:before {
+  //   content: '0' counter(item) '.';
+  //   text-align: right;
+  //   color: ${colors.green};
+  //   font-size: ${fontSizes.xsmall};
+  // }
 `;
+
 const NavLink = styled(AnchorLink)`
   padding: 12px 10px;
-`;
-const ResumeLink = styled.a`
-  ${mixins.smallButton};
-  margin-left: 10px;
-  font-size: ${fontSizes.smallish};
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+  &:after {
+    display: block;
+    content: '';
+    border-bottom: solid 1px
+      ${props => (props.scrolldirection === 'none' ? colors.highlight : colors.underscoreBlack)};
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+    transform-origin: 100% 50%;
+  }
+  &:hover {
+    color: ${colors.underscoreGrey};
+    &:after {
+      transform: scaleX(1);
+      transform-origin: 0 50%;
+    }
+  }
+  &:focus {
+    display: none !important;
+  }
 `;
 
 const DELTA = 5;
@@ -163,7 +202,7 @@ class Nav extends Component {
   state = {
     isMounted: false,
     menuOpen: false,
-    scrollDirection: 'none',
+    scrolldirection: 'none',
     lastScrollTop: 0,
   };
 
@@ -186,7 +225,7 @@ class Nav extends Component {
   toggleMenu = () => this.setState({ menuOpen: !this.state.menuOpen });
 
   handleScroll = () => {
-    const { isMounted, menuOpen, scrollDirection, lastScrollTop } = this.state;
+    const { isMounted, menuOpen, scrolldirection, lastScrollTop } = this.state;
     const fromTop = window.scrollY;
 
     // Make sure they scroll more than DELTA
@@ -195,14 +234,14 @@ class Nav extends Component {
     }
 
     if (fromTop < DELTA) {
-      this.setState({ scrollDirection: 'none' });
+      this.setState({ scrolldirection: 'none' });
     } else if (fromTop > lastScrollTop && fromTop > navHeight) {
-      if (scrollDirection !== 'down') {
-        this.setState({ scrollDirection: 'down' });
+      if (scrolldirection !== 'down') {
+        this.setState({ scrolldirection: 'down' });
       }
     } else if (fromTop + window.innerHeight < document.body.scrollHeight) {
-      if (scrollDirection !== 'up') {
-        this.setState({ scrollDirection: 'up' });
+      if (scrolldirection !== 'up') {
+        this.setState({ scrolldirection: 'up' });
       }
     }
 
@@ -226,10 +265,10 @@ class Nav extends Component {
   };
 
   render() {
-    const { isMounted, menuOpen, scrollDirection } = this.state;
+    const { isMounted, menuOpen, scrolldirection } = this.state;
 
     return (
-      <NavContainer scrollDirection={scrollDirection}>
+      <NavContainer scrolldirection={scrolldirection}>
         <Helmet>
           <body className={menuOpen ? 'blur' : ''} />
         </Helmet>
@@ -238,7 +277,7 @@ class Nav extends Component {
             {isMounted && (
               <CSSTransition classNames="fade" timeout={3000}>
                 <Logo>
-                  <LogoLink href="/" aria-label="home">
+                  <LogoLink href="#intro" aria-label="home">
                     <IconLogo />
                   </LogoLink>
                 </Logo>
@@ -266,27 +305,14 @@ class Nav extends Component {
                   navLinks.map(({ url, name }, i) => (
                     <CSSTransition key={i} classNames="fadedown" timeout={3000}>
                       <NavListItem key={i} style={{ transitionDelay: `${i * 100}ms` }}>
-                        <NavLink href={url}>{name}</NavLink>
+                        <NavLink href={url} scrolldirection={scrolldirection}>
+                          {name}
+                        </NavLink>
                       </NavListItem>
                     </CSSTransition>
                   ))}
               </TransitionGroup>
             </NavList>
-
-            <TransitionGroup>
-              {isMounted && (
-                <CSSTransition classNames="fadedown" timeout={3000}>
-                  <div style={{ transitionDelay: `600ms` }}>
-                    <ResumeLink
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="nofollow noopener noreferrer">
-                      Resume
-                    </ResumeLink>
-                  </div>
-                </CSSTransition>
-              )}
-            </TransitionGroup>
           </NavLinks>
         </Navbar>
 
