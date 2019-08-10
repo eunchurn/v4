@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-import { navLinks } from '@config';
+import { navLinks, navHeight } from '@config';
 import { Menu } from '@components';
 import { IconLogo } from '@components/icons';
 import styled from 'styled-components';
+import { throttle } from '@utils';
 import { theme, mixins, media } from '@styles';
 const { colors, fontSizes, fonts } = theme;
 
@@ -15,7 +16,7 @@ const NavContainer = styled.header`
   top: 0;
   padding: 0px 50px;
   background-color: ${props =>
-    props.scrolldirection ? colors.underscoreWhiteOp : colors.underscoreWhite};
+    props.scrolldirection === null ? colors.underscoreWhiteOp : colors.underscoreWhite};
   transition: ${theme.transition};
   z-index: 11;
   filter: none !important;
@@ -195,21 +196,40 @@ const NavLink = styled(AnchorLink)`
   }
 `;
 
+const DELTA = 5;
+
 const Nav = () => {
   const [state, setState] = useState({
     menuOpen: false,
   });
   const [lastScrollTop, setLastScrollTop] = useState(0);
-  const [bodyOffset, setBodyOffset] = useState(document.body.getBoundingClientRect());
-  const [, setScrollY] = useState(bodyOffset.top);
   const [scrollDirection, setScrollDirection] = useState();
 
   const toggleMenu = () => setState({ ...state, menuOpen: !state.menuOpen });
   const handleScroll = () => {
-    setBodyOffset(document.body.getBoundingClientRect());
-    setScrollY(-bodyOffset.top);
-    setScrollDirection(lastScrollTop > -bodyOffset.top ? 'up' : 'down');
-    setLastScrollTop(-bodyOffset.top);
+    const fromTop = window.scrollY;
+
+    if (Math.abs(lastScrollTop - fromTop) <= DELTA || state.menuOpen) {
+      return;
+    }
+
+    if (fromTop < DELTA) {
+      setScrollDirection(null);
+    } else if (fromTop > lastScrollTop && fromTop > navHeight) {
+      if (scrollDirection !== 'down') {
+        setScrollDirection('down');
+      }
+    } else if (fromTop + window.innerHeight < document.body.scrollHeight) {
+      if (scrollDirection !== 'up') {
+        setScrollDirection('up');
+      }
+    }
+    setLastScrollTop(fromTop);
+    // setBodyOffset(document.body.getBoundingClientRect());
+    // setScrollY(-bodyOffset.top);
+    // setScrollDirection(lastScrollTop > -bodyOffset.top ? 'up' : 'down');
+    // console.log(scrollDirection);
+    // setLastScrollTop(-bodyOffset.top);
   };
 
   const handleResize = () => {
@@ -229,8 +249,8 @@ const Nav = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', throttle(handleScroll));
+    window.addEventListener('resize', throttle(handleResize));
     window.addEventListener('keydown', e => handleKeydown(e));
     return () => {
       window.removeEventListener('scroll', handleScroll);
