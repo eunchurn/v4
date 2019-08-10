@@ -21,7 +21,6 @@ module.exports = {
         start_url: '/',
         background_color: config.underscoreWhite,
         theme_color: config.underscoreWhite,
-        display: 'underscore',
         icon: 'src/images/logo.png',
       },
     },

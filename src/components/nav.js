@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-import { throttle } from '@utils';
-import { navLinks, navHeight } from '@config';
+import { navLinks } from '@config';
 import { Menu } from '@components';
 import { IconLogo } from '@components/icons';
 import styled from 'styled-components';
@@ -16,7 +15,7 @@ const NavContainer = styled.header`
   top: 0;
   padding: 0px 50px;
   background-color: ${props =>
-    props.scrolldirection === 'none' ? colors.underscoreWhiteOp : colors.underscoreWhite};
+    props.scrolldirection ? colors.underscoreWhiteOp : colors.underscoreWhite};
   transition: ${theme.transition};
   z-index: 11;
   filter: none !important;
@@ -192,134 +191,103 @@ const NavLink = styled(AnchorLink)`
     }
   }
   &:focus {
-    display: none !important;
+    color: ${colors.underscoreBlack};
   }
 `;
 
-const DELTA = 5;
-
-class Nav extends Component {
-  state = {
-    isMounted: false,
+const Nav = () => {
+  const [state, setState] = useState({
     menuOpen: false,
-    scrolldirection: 'none',
-    lastScrollTop: 0,
+  });
+  const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [bodyOffset, setBodyOffset] = useState(document.body.getBoundingClientRect());
+  const [, setScrollY] = useState(bodyOffset.top);
+  const [scrollDirection, setScrollDirection] = useState();
+
+  const toggleMenu = () => setState({ ...state, menuOpen: !state.menuOpen });
+  const handleScroll = () => {
+    setBodyOffset(document.body.getBoundingClientRect());
+    setScrollY(-bodyOffset.top);
+    setScrollDirection(lastScrollTop > -bodyOffset.top ? 'up' : 'down');
+    setLastScrollTop(-bodyOffset.top);
   };
 
-  componentDidMount() {
-    setTimeout(() => this.setState({ isMounted: true }), 100);
-
-    window.addEventListener('scroll', () => throttle(this.handleScroll()));
-    window.addEventListener('resize', () => throttle(this.handleResize()));
-    window.addEventListener('keydown', e => this.handleKeydown(e));
-  }
-
-  componentWillUnmount() {
-    this.setState({ isMounted: false });
-
-    window.removeEventListener('scroll', () => this.handleScroll());
-    window.removeEventListener('resize', () => this.handleResize());
-    window.removeEventListener('keydown', e => this.handleKeydown(e));
-  }
-
-  toggleMenu = () => this.setState({ menuOpen: !this.state.menuOpen });
-
-  handleScroll = () => {
-    const { isMounted, menuOpen, scrolldirection, lastScrollTop } = this.state;
-    const fromTop = window.scrollY;
-
-    // Make sure they scroll more than DELTA
-    if (!isMounted || Math.abs(lastScrollTop - fromTop) <= DELTA || menuOpen) {
-      return;
-    }
-
-    if (fromTop < DELTA) {
-      this.setState({ scrolldirection: 'none' });
-    } else if (fromTop > lastScrollTop && fromTop > navHeight) {
-      if (scrolldirection !== 'down') {
-        this.setState({ scrolldirection: 'down' });
-      }
-    } else if (fromTop + window.innerHeight < document.body.scrollHeight) {
-      if (scrolldirection !== 'up') {
-        this.setState({ scrolldirection: 'up' });
-      }
-    }
-
-    this.setState({ lastScrollTop: fromTop });
-  };
-
-  handleResize = () => {
-    if (window.innerWidth > 768 && this.state.menuOpen) {
-      this.toggleMenu();
+  const handleResize = () => {
+    if (window.innerWidth > 768 && state.menuOpen) {
+      toggleMenu();
     }
   };
 
-  handleKeydown = e => {
-    if (!this.state.menuOpen) {
+  const handleKeydown = e => {
+    if (!state.menuOpen) {
       return;
     }
 
     if (e.which === 27 || e.key === 'Escape') {
-      this.toggleMenu();
+      toggleMenu();
     }
   };
 
-  render() {
-    const { isMounted, menuOpen, scrolldirection } = this.state;
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('keydown', e => handleKeydown(e));
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('keydown', e => handleKeydown(e));
+    };
+  });
 
-    return (
-      <NavContainer scrolldirection={scrolldirection}>
-        <Helmet>
-          <body className={menuOpen ? 'blur' : ''} />
-        </Helmet>
-        <Navbar>
-          <TransitionGroup>
-            {isMounted && (
-              <CSSTransition classNames="fade" timeout={3000}>
-                <Logo>
-                  <LogoLink href="#intro" aria-label="home">
-                    <IconLogo />
-                  </LogoLink>
-                </Logo>
-              </CSSTransition>
-            )}
-          </TransitionGroup>
+  return (
+    <NavContainer scrolldirection={scrollDirection}>
+      <Helmet>
+        <body className={state.menuOpen ? 'blur' : ''} />
+      </Helmet>
+      <Navbar>
+        <TransitionGroup>
+          {
+            <CSSTransition classNames="fade" timeout={3000}>
+              <Logo>
+                <LogoLink href="#intro" aria-label="home">
+                  <IconLogo />
+                </LogoLink>
+              </Logo>
+            </CSSTransition>
+          }
+        </TransitionGroup>
 
-          <TransitionGroup>
-            {isMounted && (
-              <CSSTransition classNames="fade" timeout={3000}>
-                <Hamburger onClick={this.toggleMenu}>
-                  <HamburgerBox>
-                    <HamburgerInner menuOpen={menuOpen} />
-                  </HamburgerBox>
-                </Hamburger>
-              </CSSTransition>
-            )}
-          </TransitionGroup>
-
-          <NavLinks>
-            <NavList>
-              <TransitionGroup>
-                {isMounted &&
-                  navLinks &&
-                  navLinks.map(({ url, name }, i) => (
-                    <CSSTransition key={i} classNames="fadedown" timeout={3000}>
-                      <NavListItem key={i} style={{ transitionDelay: `${i * 100}ms` }}>
-                        <NavLink href={url} scrolldirection={scrolldirection}>
-                          {name}
-                        </NavLink>
-                      </NavListItem>
-                    </CSSTransition>
-                  ))}
-              </TransitionGroup>
-            </NavList>
-          </NavLinks>
-        </Navbar>
-
-        <Menu menuOpen={menuOpen} toggleMenu={this.toggleMenu} />
-      </NavContainer>
-    );
-  }
-}
+        <TransitionGroup>
+          {
+            <CSSTransition classNames="fade" timeout={3000}>
+              <Hamburger onClick={toggleMenu}>
+                <HamburgerBox>
+                  <HamburgerInner menuOpen={state.menuOpen} />
+                </HamburgerBox>
+              </Hamburger>
+            </CSSTransition>
+          }
+        </TransitionGroup>
+        <NavLinks>
+          <NavList>
+            <TransitionGroup>
+              {navLinks &&
+                navLinks.map(({ url, name }, i) => (
+                  <CSSTransition key={i} classNames="fadedown" timeout={3000}>
+                    <NavListItem key={i} style={{ transitionDelay: `${i * 100}ms` }}>
+                      <NavLink href={url} scrolldirection={scrollDirection}>
+                        {name}
+                      </NavLink>
+                    </NavListItem>
+                  </CSSTransition>
+                ))}
+            </TransitionGroup>
+          </NavList>
+        </NavLinks>
+      </Navbar>
+      <Menu menuOpen={state.menuOpen} toggleMenu={toggleMenu} />
+    </NavContainer>
+  );
+};
 
 export default Nav;

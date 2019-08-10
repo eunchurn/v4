@@ -8,7 +8,14 @@
 
 const path = require('path');
 
-exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+exports.onCreateWebpackConfig = ({ stage, loaders, actions, getConfig }) => {
+  const config = getConfig();
+  if (stage.startsWith('develop') && config.resolve) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'react-dom': '@hot-loader/react-dom',
+    };
+  }
   if (stage === 'build-html') {
     actions.setWebpackConfig({
       module: {
