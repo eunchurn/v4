@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import sr from '@utils/sr';
-import { srConfig } from '@config';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
 import { theme, mixins, media, Section } from '@styles';
-import underscore from '../assets/studio-underscore_open.mp4';
+import underscore from '../assets/opening.mp4';
 
 const { colors, fontSizes, fonts } = theme;
 
@@ -105,8 +103,6 @@ const AboutLink = styled(AnchorLink)`
 
 const Intro = ({ data }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const revealContainer = useRef(null);
-  useEffect(() => sr.reveal(revealContainer.current, srConfig()), []);
   useEffect(() => {
     const timeout = setTimeout(() => setIsMounted(true), 1000);
     return () => clearTimeout(timeout);

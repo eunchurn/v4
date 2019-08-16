@@ -5,7 +5,6 @@ range: Sep 2017
 place: 'SNU College of Humanities Building 8'
 sponsored: Art Space@SNU
 cover: './EPAS.JPG'
-external: '#'
 press: 'http://www.kjdaily.com/read.php3?aid=1562116202475383208'
 hashtag:
   - site-specific

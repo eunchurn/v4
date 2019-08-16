@@ -277,7 +277,7 @@ class Nav extends Component {
             {isMounted && (
               <CSSTransition classNames="fade" timeout={3000}>
                 <Logo>
-                  <LogoLink href="/" aria-label="home">
+                  <LogoLink href="#intro" aria-label="home">
                     <IconLogo />
                   </LogoLink>
                 </Logo>

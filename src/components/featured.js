@@ -278,17 +278,15 @@ const Featured = ({ data }) => {
                 <ContentContainer>
                   <FeaturedLabel>Featured Project</FeaturedLabel>
                   <ProjectName>
-                    {external ? (
+                    {
                       <a
-                        href={external}
+                        href={external ? external : null}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
                         aria-label="External Link">
                         {title}
                       </a>
-                    ) : (
-                      title
-                    )}
+                    }
                   </ProjectName>
                   <PlaceRange>
                     {range} | {place}
@@ -324,7 +322,7 @@ const Featured = ({ data }) => {
                 </ContentContainer>
 
                 <ImgContainer
-                  href={external ? external : github ? github : '#'}
+                  href={external ? external : github ? github : null}
                   target="_blank"
                   rel="nofollow noopener noreferrer">
                   <FeaturedImg fluid={cover.childImageSharp.fluid} />

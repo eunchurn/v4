@@ -18,7 +18,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "lint:fix": "eslint --fix ./src/**/*.js",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public --repo git@github.com-underscore:we-underscore/v1.git -b master"
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public --repo git@github.com-underscore:we-underscore/we-underscore.github.io.git -b master"
   },
   "husky": {
     "hooks": {
