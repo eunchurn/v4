@@ -20,11 +20,6 @@
     "lint:fix": "eslint --fix ./src/**/*.js",
     "deploy": "gatsby build --prefix-paths && cp ./src/CNAME public/ && gh-pages -d public --repo git@github.com-underscore:we-underscore/we-underscore.github.io.git -b master"
   },
-  // "husky": {
-  //   "hooks": {
-  //     "pre-commit": "pretty-quick --staged && lint-staged"
-  //   }
-  // },
   "lint-staged": {
     "*.js": [
       "eslint --fix",
