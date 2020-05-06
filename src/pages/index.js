@@ -14,7 +14,10 @@ const IndexPage = ({ data }) => (
   <Layout>
     <MainContainer id="content">
       <Intro data={data.intro.edges} />
-      <About data={data.about.edges} cvdata={data.cv.edges} />
+      {
+        // <About data={data.about.edges} cvdata={data.cv.edges} />
+      }
+      <About data={data.about.edges} />
       <Featured data={data.featured.edges} />
       <Projects data={data.projects.edges} />
       <Contact data={data.contact.edges} />

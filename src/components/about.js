@@ -63,7 +63,9 @@ const About = ({ data, cvdata }) => {
           </SkillsContainer>
         </ContentContainer>
       </FlexContainer>
-      <Cv data={cvdata} />
+      {
+        // <Cv data={cvdata} />
+      }
     </AboutContainer>
   );
 };

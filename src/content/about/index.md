@@ -10,9 +10,9 @@ skills:
   - Image
 ---
 
-**underscore** is a team of two, Inkyung Baik and Hakyung Sim.
+<!-- **underscore** is a team of two, Inkyung Baik and Hakyung Sim.
 
-Inkyung, a visual design major, and Hakyung, an English literature major, met at the Interdisciplinary Program of Performing Arts Studies at Seoul National University. They have studied and worked together since, and are thinking the contemporary from a performing arts perspective as _underscore_ since 2017.
+Inkyung, a visual design major, and Hakyung, an English literature major, met at the Interdisciplinary Program of Performing Arts Studies at Seoul National University. They have studied and worked together since, and are thinking the contemporary from a performing arts perspective as _underscore_ since 2017. -->
 
 **underscore** does the following:
 
